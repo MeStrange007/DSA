@@ -1,4 +1,6 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<stack> 
 using namespace std;
 
 void printStack(vector<stack<int>> stks,vector<string> name,int& count){

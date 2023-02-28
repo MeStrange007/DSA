@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
 class GraphADT{
@@ -91,9 +92,9 @@ class GraphADT{
             }
         }
 
-        void DFSUtil(int sourse,int vis[]){
+        void DFSUtil(int sourse,bool vis[]){
             vis[sourse]=1;
-            cout<<sourse;
+            cout<<sourse<<"\t";
             if(this->type == 1 ||this->type == 3){
                 for(int i=0;i<this->V;i++){
                     if(!vis[i] && this->adjMat[sourse][i]<INT8_MAX && this->adjMat[sourse][i]>=0){
@@ -109,14 +110,19 @@ class GraphADT{
             }
         }
 
-        void DFSTravers(int sourse=NULL){
-            int visited[this->V] = {0};
-            if(sourse){
+        void DFSTravers(int sourse=0){
+            bool* visited = new bool[this->V];
+            for(int i=0;i<this->V;i++){
+                visited[i]=0;
+            }
+            if(sourse!=0){
                 DFSUtil(sourse-1,visited);
+                cout<<endl;
             }else{
                 for(int i=0;i<this->V;i++){
                     if(!visited[i]){
                         DFSUtil(i,visited);
+                        cout<<endl;
                     }
                 }
             }
@@ -124,5 +130,8 @@ class GraphADT{
 };
 
 int main(){
-    
+    int opt;
+    cout<<endl<<"Selct type of Graph to create : \n1. undirected+Matrix\t 2. undirected+List \n3. directed+Matrix\t 4. directed+List\t 0.Exit\n";cin>>opt;
+    GraphADT* graph1 = new GraphADT(opt);
+    graph1->DFSTravers();
 }

@@ -5,6 +5,7 @@ template <class T> class Node {
     public:
     T data;
     Node* next = NULL;
+    Node* prev = NULL;
     int pos;
     Node(){
 
@@ -14,18 +15,18 @@ template <class T> class Node {
     }
 };
 
-template<class T> class SLinkedList{
+template<class T> class DLinkedList{
     private:
     Node<T>* head; 
     int NumNodes = 0;
     
     public:
-    SLinkedList(){
+    DLinkedList(){
         head = new Node<T>();
         head->pos=0;
         // NumNodes++;
     }
-    SLinkedList(T *data){
+    DLinkedList(T *data){
         NumNodes++;
         this->head = new Node<T>(data);
         this->head->pos=NumNodes;
@@ -41,10 +42,18 @@ template<class T> class SLinkedList{
             while(temp->next!=NULL && temp->pos!=pos){
                 temp=temp->next;
             }
-            Node<T>* temp2 = temp->next;
-            temp->next=new Node<T>(data);
-            temp->next->next=temp2;
-            temp->next->pos=NumNodes;
+            if(temp->next==NULL){
+                temp->next=new Node<T>(data);
+                temp->next->prev=temp;
+                temp->next->next=NULL;
+                temp->next->pos=NumNodes;
+            }else{
+                Node<T>* temp2 = new Node<T>(data);
+                temp2->pos=NumNodes;
+                temp2->next=temp->next;
+                temp->next->prev=temp2;
+                temp->next=temp2;
+            }
         }
     }
 
@@ -54,7 +63,19 @@ template<class T> class SLinkedList{
             temp=temp->next;
         }
         while(temp!=NULL){
-            cout<<"["<<temp->pos<<"]="<<temp->data<<"\t";
+            cout<<"["<<temp->pos<<"]={"<<temp->data<<" prev:";
+            if(temp->prev!=NULL){
+                cout<<temp->prev->pos;
+            }else{
+                cout<<"NULL";
+            } 
+            cout<<" nxt:";
+            if(temp->next!=NULL){
+                cout<<temp->next->pos;
+            }else{
+                cout<<"NULL";
+            } 
+            cout<<"}\t";
             temp=temp->next;
         }
         cout<<endl;
@@ -64,14 +85,23 @@ template<class T> class SLinkedList{
             Node<T>* temp = head;
             if(pos==1){
                 head=temp->next;
+                head->prev=NULL;
                 return temp;
             }else{
                 while(temp->next->next!=NULL && temp->next->pos!=pos){
                     temp=temp->next;
                 }
-                Node<T>* temp2 = temp->next;
-                temp->next=temp->next->next;
-                return temp2;
+                if(temp->next->next==NULL){
+                    Node<T>* temp2 = temp->next;
+                    temp->next=NULL;
+                    return temp2;
+                }else{
+                    Node<T>* temp2 = temp->next;
+                    temp->next->next->prev=temp;
+                    temp->next=temp->next->next;
+                    return temp2;
+                }
+                
             }
     }
 
@@ -98,16 +128,16 @@ template<class T> class SLinkedList{
 };
 
 int main(){
-    SLinkedList<int>* SLL1 = new SLinkedList<int>();
-    for(int i=0;i<10;i++){
+    DLinkedList<int>* SLL1 = new DLinkedList<int>();
+    for(int i=0;i<6;i++){
         SLL1->insertNode(i);
     }
     SLL1->traverse();
     SLL1->deleteNode(5);
     SLL1->traverse(4);
-    SLL1->deleteLinkedList();
-    for(int i=0;i<5;i++){
-        SLL1->insertNode(i);
-    }
-    SLL1->traverse();
+    // SLL1->deleteLinkedList();
+    // for(int i=0;i<5;i++){
+    //     SLL1->insertNode(i);
+    // }
+    // SLL1->traverse();
 }

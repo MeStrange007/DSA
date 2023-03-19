@@ -17,6 +17,9 @@ int maxSubArray(vector<int>& nums) {
             maxIndex=i;
         }
     }
+    if(temp[maxIndex]<0){
+        
+    }
     int minIndex=0;
     for(int i=0;i<maxIndex;i++){
         if(temp[i]<temp[minIndex]){

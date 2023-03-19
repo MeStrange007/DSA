@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "xstring": "cpp",
         "utility": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "xutility": "cpp",
+        "vector": "cpp"
     }
 }

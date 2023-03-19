@@ -98,16 +98,39 @@ template<class T> class SLinkedList{
 };
 
 int main(){
-    SLinkedList<int>* SLL1 = new SLinkedList<int>();
-    for(int i=0;i<10;i++){
-        SLL1->insertNode(i);
+    // SLinkedList<int>* SLL1 = new SLinkedList<int>();
+    // for(int i=0;i<10;i++){
+    //     SLL1->insertNode(i);
+    // }
+    // SLL1->traverse();
+    // SLL1->deleteNode(5);
+    // SLL1->traverse(4);
+    // SLL1->deleteLinkedList();
+    // for(int i=0;i<5;i++){
+    //     SLL1->insertNode(i);
+    // }
+    // SLL1->traverse();
+    Node<int>* head = new Node<int>(5);
+    Node<int>* n2 = new Node<int>(6);
+    Node<int>* n3 = new Node<int>(7);
+    Node<int>* n4 = new Node<int>(8);
+    Node<int>* n5 = new Node<int>(9);
+    Node<int>* n6 = new Node<int>(1);
+    Node<int>* n7 = new Node<int>(2);
+    Node<int>* n8 = new Node<int>(3);
+    n7->next=n8;
+    n6->next=n7;
+    n5->next=n6;
+    n4->next=n5;
+    n3->next=n4;
+    n2->next=n3;
+    head->next=n2;
+    n8->next=n6;
+
+    Node<int>* slw=head;
+    Node<int>* fst=head;
+    while(slw->data!=fst->data && fst->next!=NULL && slw->next!=NULL){
+        
     }
-    SLL1->traverse();
-    SLL1->deleteNode(5);
-    SLL1->traverse(4);
-    SLL1->deleteLinkedList();
-    for(int i=0;i<5;i++){
-        SLL1->insertNode(i);
-    }
-    SLL1->traverse();
+
 }
